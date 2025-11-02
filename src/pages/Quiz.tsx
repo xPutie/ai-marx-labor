@@ -1,240 +1,181 @@
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { CheckCircle2, XCircle } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 const questions = [
-  {
-    id: 1,
-    question: "Theo Marx, giá trị của hàng hóa được xác định bởi yếu tố nào?",
-    options: [
-      "Giá cả thị trường",
-      "Thời gian lao động xã hội cần thiết",
-      "Chi phí sản xuất",
-      "Cung và cầu"
-    ],
-    correct: 1,
-  },
-  {
-    id: 2,
-    question: "Lao động cụ thể là gì?",
-    options: [
-      "Lao động tạo ra giá trị sử dụng cụ thể",
-      "Lao động chân tay nặng nhọc",
-      "Lao động trong nhà máy",
-      "Lao động có tay nghề cao"
-    ],
-    correct: 0,
-  },
-  {
-    id: 3,
-    question: "Giá trị thặng dư là gì?",
-    options: [
-      "Lợi nhuận từ kinh doanh",
-      "Phần giá trị mà người công nhân tạo ra vượt quá giá trị sức lao động",
-      "Thuế phải nộp cho nhà nước",
-      "Chi phí quản lý doanh nghiệp"
-    ],
-    correct: 1,
-  },
-  {
-    id: 4,
-    question: "AI và robot có thể thay thế hoàn toàn lao động con người không?",
-    options: [
-      "Có, trong mọi lĩnh vực",
-      "Không, vì chỉ con người mới tạo ra giá trị mới",
-      "Có, trong tương lai gần",
-      "Không, vì máy móc quá đắt"
-    ],
-    correct: 1,
-  },
-  {
-    id: 5,
-    question: "Trong kỷ nguyên số, loại lao động nào đang trở nên quan trọng hơn?",
-    options: [
-      "Lao động chân tay",
-      "Lao động trí tuệ và sáng tạo",
-      "Lao động nông nghiệp",
-      "Lao động giản đơn"
-    ],
-    correct: 1,
-  },
-  {
-    id: 6,
-    question: "Theo Marx, máy móc trong sản xuất đóng vai trò gì?",
-    options: [
-      "Tạo ra giá trị mới",
-      "Chuyển giao giá trị cũ vào sản phẩm",
-      "Thay thế hoàn toàn con người",
-      "Tăng giá trị thặng dư tuyệt đối"
-    ],
-    correct: 1,
-  },
-  {
-    id: 7,
-    question: "Việt Nam đang thực hiện chiến lược gì về nguồn nhân lực?",
-    options: [
-      "Tăng số lượng lao động giá rẻ",
-      "Phát triển nguồn nhân lực chất lượng cao",
-      "Chỉ tập trung vào nông nghiệp",
-      "Nhập khẩu lao động nước ngoài"
-    ],
-    correct: 1,
-  },
-  {
-    id: 8,
-    question: "Sự khác biệt giữa lao động cụ thể và lao động trừu tượng là gì?",
-    options: [
-      "Lao động cụ thể dễ hơn lao động trừu tượng",
-      "Lao động cụ thể tạo giá trị sử dụng, lao động trừu tượng tạo giá trị",
-      "Không có sự khác biệt",
-      "Lao động trừu tượng chỉ có trong công nghiệp"
-    ],
-    correct: 1,
-  },
+  { id: 1, question: "Theo Marx, giá trị của hàng hóa được quyết định bởi?", options: ["Giá cả thị trường", "Thời gian lao động xã hội cần thiết", "Cung cầu", "Chi phí sản xuất"] },
+  { id: 2, question: "Lao động cụ thể khác với lao động trừu tượng ở điểm nào?", options: ["Không khác", "Lao động cụ thể tạo giá trị sử dụng, trừu tượng tạo giá trị", "Lao động trừu tượng năng suất cao hơn", "Lao động cụ thể là lao động trí óc"] },
+  { id: 3, question: "Giá trị thặng dư là gì?", options: ["Phần lợi nhuận của doanh nghiệp", "Phần giá trị công nhân tạo ra vượt giá trị sức lao động", "Thuế nhà nước thu", "Tiền thưởng thêm"] },
+  { id: 4, question: "AI đóng vai trò gì trong quá trình sản xuất hiện đại?", options: ["Tạo giá trị mới độc lập", "Công cụ hỗ trợ lao động sáng tạo của con người", "Thay thế hoàn toàn lao động", "Giảm nhu cầu lao động"] },
+  { id: 5, question: "Theo Marx, bản chất con người được thể hiện qua?", options: ["Công cụ lao động", "Tôn giáo", "Lao động", "Ngôn ngữ"] },
+  { id: 6, question: "Lao động sáng tạo có vai trò gì trong kỷ nguyên AI?", options: ["Giảm dần tầm quan trọng", "Là yếu tố không thể thay thế", "Bị thay thế bởi robot", "Chỉ dành cho chuyên gia"] },
+  { id: 7, question: "Theo Marx, máy móc trong sản xuất có chức năng chính là?", options: ["Tạo giá trị mới", "Chuyển giá trị cũ vào sản phẩm", "Thay thế giá trị lao động", "Tăng chi phí sản xuất"] },
+  { id: 8, question: "Lao động trong nền kinh tế tri thức có đặc điểm gì?", options: ["Phụ thuộc vào sức cơ bắp", "Dựa vào sáng tạo và tri thức", "Không cần công nghệ", "Thiếu tính xã hội"] },
+  { id: 9, question: "AI thay đổi khái niệm lao động như thế nào?", options: ["Xóa bỏ lao động", "Mở rộng khái niệm lao động sáng tạo", "Không ảnh hưởng", "Giảm năng suất"] },
+  { id: 10, question: "Theo Mác, của cải xã hội bắt nguồn từ?", options: ["Tiền tệ", "Lao động của con người", "Máy móc", "Vốn tư bản"] },
+  { id: 11, question: "Mục tiêu cao nhất của chủ nghĩa xã hội theo Hồ Chí Minh là?", options: ["Phát triển quân đội", "Xóa bỏ nghèo nàn, mang lại ấm no hạnh phúc cho nhân dân", "Tăng trưởng GDP", "Phát triển công nghệ"] },
+  { id: 12, question: "Trong xã hội hiện đại, yếu tố nào giúp con người khác biệt với AI?", options: ["Trí nhớ", "Cảm xúc và đạo đức", "Khả năng tính toán", "Tốc độ xử lý"] },
+  { id: 13, question: "Công nghiệp 4.0 tác động gì đến người lao động?", options: ["Tăng thất nghiệp, giảm cơ hội học tập", "Đòi hỏi kỹ năng sáng tạo và tư duy phản biện", "Không ảnh hưởng đáng kể", "Giảm năng suất"] },
+  { id: 14, question: "Theo Marx, lao động bị tha hóa khi?", options: ["Người lao động làm vì đam mê", "Lao động trở thành hàng hóa, xa lạ với chính mình", "Người lao động được tự do sáng tạo", "Làm việc tập thể"] },
+  { id: 15, question: "Trí tuệ nhân tạo nên được hiểu là?", options: ["Một công cụ trung lập phản ánh trình độ phát triển của con người", "Một thực thể độc lập có ý thức", "Nguy cơ xóa bỏ nhân loại", "Một xu hướng nhất thời"] },
 ];
 
-const Quiz = () => {
+export default function Quiz() {
+  const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState<{ [key: number]: number }>({});
-  const [showResults, setShowResults] = useState(false);
+  const [finished, setFinished] = useState(false);
+  const [direction, setDirection] = useState(1);
 
-  const handleAnswer = (questionId: number, answerIndex: number) => {
-    setAnswers(prev => ({ ...prev, [questionId]: answerIndex }));
+  const handleAnswer = (answerIndex: number) => {
+    setAnswers(prev => ({ ...prev, [questions[current].id]: answerIndex }));
   };
 
-  const handleSubmit = () => {
-    setShowResults(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const nextQuestion = () => {
+    if (current < questions.length - 1) {
+      setDirection(1);
+      setCurrent(current + 1);
+    } else {
+      setFinished(true);
+    }
   };
 
-  const calculateScore = () => {
-    let correct = 0;
-    questions.forEach(q => {
-      if (answers[q.id] === q.correct) correct++;
-    });
-    return correct;
+  const prevQuestion = () => {
+    if (current > 0) {
+      setDirection(-1);
+      setCurrent(current - 1);
+    }
   };
 
-  const score = showResults ? calculateScore() : 0;
-  const percentage = showResults ? Math.round((score / questions.length) * 100) : 0;
+  const progress = Math.round(((current + 1) / questions.length) * 100);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[#FFFCFA] relative overflow-hidden">
       <Header />
-      
-      <main className="flex-1 py-12">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-12 animate-fade-in">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Ôn tập kiến thức
-              </h1>
-              <p className="text-lg text-muted-foreground">
-                Kiểm tra hiểu biết của bạn về lý thuyết Mác và AI
-              </p>
-            </div>
 
-            {showResults && (
-              <Card className="p-6 mb-8 bg-gradient-to-r from-primary/10 to-accent/10 animate-fade-in">
-                <div className="text-center">
-                  <h2 className="text-2xl font-bold mb-2">Kết quả của bạn</h2>
-                  <div className="text-4xl font-bold mb-2">
-                    <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                      {score}/{questions.length}
-                    </span>
-                  </div>
-                  <p className="text-lg text-muted-foreground">
-                    Bạn đã hiểu {percentage}% kiến thức hôm nay!
-                  </p>
-                  {percentage >= 70 ? (
-                    <p className="text-primary font-semibold mt-2">Xuất sắc! 🎉</p>
-                  ) : percentage >= 50 ? (
-                    <p className="text-accent font-semibold mt-2">Khá tốt! Hãy ôn lại một chút nhé! 📚</p>
-                  ) : (
-                    <p className="text-destructive font-semibold mt-2">Cần cố gắng thêm! 💪</p>
-                  )}
+      <main className="flex-1 py-12 relative z-10">
+        <div className="container mx-auto px-4 max-w-3xl">
+          {!finished ? (
+            <>
+              <div className="mb-8">
+                <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-[#F45D48] to-[#F7B733] bg-clip-text text-transparent">
+                  Ôn tập kiến thức
+                </h1>
+                <p className="text-center text-muted-foreground mt-2">
+                  Câu {current + 1} / {questions.length}
+                </p>
+                <div className="w-full bg-muted h-2 rounded-full mt-4 overflow-hidden">
+                  <div
+                    className="h-2 bg-gradient-to-r from-[#F45D48] to-[#F7B733] transition-all"
+                    style={{ width: `${progress}%` }}
+                  ></div>
                 </div>
-              </Card>
-            )}
+              </div>
 
-            <div className="space-y-6">
-              {questions.map((question, index) => (
-                <Card key={question.id} className="p-6 animate-slide-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                  <div className="flex gap-3 mb-4">
-                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-primary-foreground font-bold">
-                      {question.id}
-                    </div>
-                    <h3 className="font-semibold text-lg flex-1">{question.question}</h3>
-                  </div>
-                  
-                  <RadioGroup
-                    value={answers[question.id]?.toString()}
-                    onValueChange={(value) => handleAnswer(question.id, parseInt(value))}
-                  >
-                    {question.options.map((option, optionIndex) => (
-                      <div
-                        key={optionIndex}
-                        className={`flex items-center space-x-2 p-3 rounded-lg border transition-colors ${
-                          showResults
-                            ? optionIndex === question.correct
-                              ? "bg-green-50 border-green-500"
-                              : answers[question.id] === optionIndex
-                              ? "bg-red-50 border-red-500"
-                              : ""
-                            : "hover:bg-muted"
-                        }`}
-                      >
-                        <RadioGroupItem value={optionIndex.toString()} id={`q${question.id}-${optionIndex}`} disabled={showResults} />
-                        <Label htmlFor={`q${question.id}-${optionIndex}`} className="flex-1 cursor-pointer">
-                          {option}
-                        </Label>
-                        {showResults && optionIndex === question.correct && (
-                          <CheckCircle2 className="w-5 h-5 text-green-600" />
-                        )}
-                        {showResults && answers[question.id] === optionIndex && optionIndex !== question.correct && (
-                          <XCircle className="w-5 h-5 text-red-600" />
-                        )}
-                      </div>
-                    ))}
-                  </RadioGroup>
-                </Card>
-              ))}
-            </div>
-
-            <div className="mt-8 flex justify-center gap-4">
-              {!showResults ? (
-                <Button 
-                  size="lg" 
-                  variant="hero"
-                  onClick={handleSubmit}
-                  disabled={Object.keys(answers).length !== questions.length}
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                  key={current}
+                  initial={{ opacity: 0, x: direction > 0 ? 100 : -100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: direction > 0 ? -100 : 100 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
                 >
-                  Nộp bài
+                  <Card className="p-6 shadow-sm">
+                    <h2 className="text-xl font-semibold mb-4">{questions[current].question}</h2>
+                    <RadioGroup
+                      value={answers[questions[current].id]?.toString()}
+                      onValueChange={val => handleAnswer(parseInt(val))}
+                    >
+                      {questions[current].options.map((opt, idx) => (
+                        <div key={idx} className="flex items-center space-x-2 p-3 rounded-lg hover:bg-muted cursor-pointer">
+                          <RadioGroupItem value={idx.toString()} id={`opt-${idx}`} />
+                          <Label htmlFor={`opt-${idx}`} className="flex-1">{opt}</Label>
+                        </div>
+                      ))}
+                    </RadioGroup>
+                  </Card>
+                </motion.div>
+              </AnimatePresence>
+
+              <div className="flex justify-between mt-8">
+                <Button onClick={prevQuestion} disabled={current === 0} variant="outline">
+                  Câu trước
                 </Button>
-              ) : (
-                <Button 
-                  size="lg" 
-                  variant="hero"
-                  onClick={() => {
-                    setAnswers({});
-                    setShowResults(false);
-                  }}
+                <Button
+                  onClick={nextQuestion}
+                  variant="default"
+                  className="bg-gradient-to-r from-[#F45D48] to-[#F7B733] text-white shadow-md"
+                >
+                  {current < questions.length - 1 ? "Câu tiếp" : "Hoàn thành"}
+                </Button>
+              </div>
+            </>
+          ) : (
+            <>
+              {/* 🌤 Elegant Glow Mode */}
+              <motion.div
+                className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,200,150,0.3),transparent_70%),radial-gradient(circle_at_80%_70%,rgba(250,120,90,0.2),transparent_70%)] animate-gradientMove"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1.5 }}
+              />
+              <motion.div
+                className="text-center py-20 relative z-10"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+              >
+                <h2 className="text-5xl font-bold bg-gradient-to-r from-[#F45D48] via-[#F7B733] to-[#F45D48] bg-clip-text text-transparent mb-6 animate-pulse-slow">
+                  ✨ Hoàn thành hành trình
+                </h2>
+                <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+                  Cảm ơn bạn đã đồng hành cùng <strong>Human & AI</strong>.<br />
+                  Hành trình này không chỉ là tìm hiểu về công nghệ,<br />
+                  mà còn là hành trình hiểu về <em>con người và giá trị sáng tạo</em>.
+                </p>
+                <blockquote className="italic text-gray-700 max-w-xl mx-auto border-l-4 pl-4 border-[#F7B733]">
+                  “Trong thời đại trí tuệ nhân tạo, lao động của con người không mất đi –  
+                  mà chuyển hóa thành sáng tạo, tri thức và giá trị nhân văn.”  
+                  <br /> <span className="text-sm text-gray-500">– Phân tích theo tư tưởng C. Mác</span>
+                </blockquote>
+
+                <Button
+                  className="mt-12 bg-gradient-to-r from-[#F45D48] to-[#F7B733] text-white shadow-lg hover:scale-105 transition-transform"
+                  onClick={() => { setFinished(false); setCurrent(0); }}
                 >
                   Làm lại
                 </Button>
-              )}
-            </div>
-          </div>
+              </motion.div>
+
+              {/* 🌈 CSS động gradient */}
+              <style>{`
+                @keyframes gradientMove {
+                  0% { background-position: 0% 50%; }
+                  50% { background-position: 100% 50%; }
+                  100% { background-position: 0% 50%; }
+                }
+                .animate-gradientMove {
+                  background-size: 200% 200%;
+                  animation: gradientMove 12s ease infinite;
+                }
+                .animate-pulse-slow {
+                  animation: pulse 3s ease-in-out infinite;
+                }
+                @keyframes pulse {
+                  0%, 100% { opacity: 1; text-shadow: 0 0 12px rgba(247,183,51,0.3); }
+                  50% { opacity: 0.9; text-shadow: 0 0 18px rgba(244,93,72,0.45); }
+                }
+              `}</style>
+            </>
+          )}
         </div>
       </main>
 
       <Footer />
     </div>
   );
-};
-
-export default Quiz;
+}

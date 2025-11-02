@@ -69,8 +69,8 @@ const Discussion = () => {
           ></iframe>
         </div>
 
-        <p className="mt-6 text-sm text-blue-100/70 italic">
-          ⏳ Nếu không hiển thị, hãy bật quyền “Embed” trong Padlet hoặc kiểm tra kết nối mạng.
+        <p className="mt-6 text-sm text-blue-100/70 border-t pt-4 max-w-2xl">
+          ⏳ Lưu ý: Bảng thảo luận có thể mất vài giây để tải tùy vào tốc độ mạng của bạn.
         </p>
       </main>
 

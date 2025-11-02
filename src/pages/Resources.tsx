@@ -120,7 +120,7 @@ const Resources = () => {
           {/* --- PHẦN TÀI LIỆU --- */}
           <div className="text-center mb-14 animate-fade-in">
             <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Tài nguyên bổ sung
+              Tài liệu bổ sung
             </h1>
             <p className="text-lg text-muted-foreground">
               Tài liệu học thuật và hội thoại triết học cùng MarxBot 🤖

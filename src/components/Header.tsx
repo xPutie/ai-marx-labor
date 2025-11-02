@@ -10,7 +10,7 @@ const Header = () => {
     { path: "/videos", label: "Video" },
     { path: "/quiz", label: "Ôn tập" },
     { path: "/simulator", label: "Mô phỏng" },
-    { path: "/resources", label: "Bổ sung" },
+    { path: "/resources", label: "Tài liệu" },
   ];
 
   return (
@@ -20,7 +20,7 @@ const Header = () => {
           <Link to="/" className="flex items-center gap-2 font-bold text-xl">
             <BookOpen className="w-6 h-6 text-primary" />
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              AI & Lao động
+              Human & AI
             </span>
           </Link>
           
