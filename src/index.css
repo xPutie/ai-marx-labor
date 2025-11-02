@@ -2,42 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
+/* === 🎨 Design System (Mặc định + Dark Mode) === */
 @layer base {
   :root {
     --background: 30 40% 97%;
     --foreground: 0 0% 15%;
-
     --card: 0 0% 100%;
     --card-foreground: 0 0% 15%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 15%;
-
     --primary: 0 85% 65%;
     --primary-foreground: 0 0% 100%;
-
     --secondary: 45 94% 63%;
     --secondary-foreground: 0 0% 15%;
-
     --muted: 30 30% 90%;
     --muted-foreground: 0 0% 45%;
-
     --accent: 45 94% 63%;
     --accent-foreground: 0 0% 15%;
-
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
-
     --border: 30 20% 88%;
     --input: 30 20% 88%;
     --ring: 0 85% 65%;
-
     --radius: 0.75rem;
-
     --hero-gradient: linear-gradient(135deg, hsl(0 85% 65%) 0%, hsl(45 94% 63%) 100%);
     --card-shadow: 0 4px 12px hsla(0, 85%, 65%, 0.1);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -46,35 +33,25 @@ All colors MUST be HSL.
   .dark {
     --background: 0 0% 10%;
     --foreground: 0 0% 95%;
-
     --card: 0 0% 15%;
     --card-foreground: 0 0% 95%;
-
     --popover: 0 0% 15%;
     --popover-foreground: 0 0% 95%;
-
     --primary: 0 85% 65%;
     --primary-foreground: 0 0% 100%;
-
     --secondary: 45 94% 63%;
     --secondary-foreground: 0 0% 15%;
-
     --muted: 0 0% 20%;
     --muted-foreground: 0 0% 60%;
-
     --accent: 45 94% 63%;
     --accent-foreground: 0 0% 15%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
-
     --border: 0 0% 25%;
     --input: 0 0% 25%;
     --ring: 0 85% 65%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
@@ -82,4 +59,165 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+
+  /* === 🌟 Hiệu ứng glow border cho MarxBot === */
+  @keyframes glow {
+    0% {
+      box-shadow: 0 0 8px rgba(80, 180, 255, 0.2),
+        0 0 12px rgba(80, 180, 255, 0.1);
+    }
+
+    50% {
+      box-shadow: 0 0 16px rgba(80, 180, 255, 0.45),
+        0 0 24px rgba(80, 180, 255, 0.25);
+    }
+
+    100% {
+      box-shadow: 0 0 8px rgba(80, 180, 255, 0.2),
+        0 0 12px rgba(80, 180, 255, 0.1);
+    }
+  }
+
+  .before\:animate-glow::before {
+    animation: glow 3s ease-in-out infinite;
+  }
+}
+
+/* === 💡 AI Presentation Mode (ngoài layer base) === */
+@layer utilities {
+  .presentation-mode {
+    @apply bg-gradient-to-br from-[#0a0f1c] via-[#141a2a] to-[#0a0f1c] text-white;
+  }
+
+  .presentation-card {
+    @apply bg-gradient-to-br from-[#151b2e]/90 to-[#101625]/90 border border-blue-400/20 transition-all duration-500;
+    box-shadow: 0 0 25px rgba(80, 150, 255, 0.2);
+  }
+
+  .presentation-text {
+    @apply text-blue-100;
+  }
+
+  .presentation-glow {
+    box-shadow: 0 0 12px rgba(120, 190, 255, 0.4),
+      0 0 24px rgba(120, 190, 255, 0.2),
+      inset 0 0 8px rgba(120, 190, 255, 0.15);
+    transition: all 0.5s ease-in-out;
+  }
+
+  .presentation-glow:hover {
+    box-shadow: 0 0 16px rgba(150, 210, 255, 0.6),
+      0 0 32px rgba(150, 210, 255, 0.3),
+      inset 0 0 10px rgba(150, 210, 255, 0.2);
+  }
+
+  /* Hiệu ứng xuất hiện mượt mà */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.8s ease-out;
+  }
+    /* === 🌟 Hiệu ứng glow border cho MarxBot và presentation === */
+    @keyframes glow {
+      0% {
+        box-shadow: 0 0 8px rgba(80, 180, 255, 0.2), 0 0 12px rgba(80, 180, 255, 0.1);
+      }
+  
+      50% {
+        box-shadow: 0 0 16px rgba(80, 180, 255, 0.45), 0 0 24px rgba(80, 180, 255, 0.25);
+      }
+  
+      100% {
+        box-shadow: 0 0 8px rgba(80, 180, 255, 0.2), 0 0 12px rgba(80, 180, 255, 0.1);
+      }
+    }
+  
+    .before\:animate-glow::before {
+      animation: glow 3s ease-in-out infinite;
+    }
+  
+    /* === 💡 Presentation Mode === */
+    .presentation-mode {
+      background: linear-gradient(to bottom right, #0a0f1c, #141a2a, #0a0f1c);
+      color: #f8fafc;
+    }
+  
+    .presentation-card {
+      background: linear-gradient(to bottom right, rgba(21, 27, 46, 0.9), rgba(16, 22, 37, 0.9));
+      border: 1px solid rgba(96, 165, 250, 0.25);
+      box-shadow: 0 0 25px rgba(80, 150, 255, 0.2);
+      transition: all 0.5s ease;
+    }
+  
+    .presentation-glow {
+      box-shadow:
+        0 0 12px rgba(120, 190, 255, 0.4),
+        0 0 24px rgba(120, 190, 255, 0.2),
+        inset 0 0 8px rgba(120, 190, 255, 0.15);
+      transition: all 0.5s ease-in-out;
+    }
+  
+    .presentation-glow:hover {
+      box-shadow:
+        0 0 16px rgba(150, 210, 255, 0.6),
+        0 0 32px rgba(150, 210, 255, 0.3),
+        inset 0 0 10px rgba(150, 210, 255, 0.2);
+    }
+  
+    /* === 🌈 Gradient động (AI “thinking” background) === */
+    @keyframes gradient-move {
+  
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+  
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+  
+    .ai-bg {
+      background: linear-gradient(-45deg, #1e3a8a, #0f172a, #312e81, #1e40af);
+      background-size: 300% 300%;
+      animation: gradient-move 10s ease infinite;
+    }
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(8px);
+          }
+    
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+    
+        .animate-fade-in {
+          animation: fade-in 0.8s ease-in-out;
+        }
+    
+        .presentation-glow {
+          box-shadow: 0 0 12px rgba(120, 190, 255, 0.4),
+            0 0 24px rgba(120, 190, 255, 0.2),
+            inset 0 0 8px rgba(120, 190, 255, 0.15);
+          transition: all 0.5s ease-in-out;
+        }
+    
+        .presentation-glow:hover {
+          box-shadow: 0 0 16px rgba(150, 210, 255, 0.6),
+            0 0 32px rgba(150, 210, 255, 0.3),
+            inset 0 0 10px rgba(150, 210, 255, 0.2);
+        }
 }

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
-import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, BookCheck } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -69,6 +70,15 @@ const Content = () => {
                   </Card>
                 </Link>
               ))}
+              </div>
+
+            <div className="mt-12 text-center animate-fade-in">
+              <Link to="/conclusion">
+                <Button variant="hero" size="lg" className="gap-2">
+                  <BookCheck className="w-5 h-5" />
+                  Đọc kết luận
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

@@ -42,6 +42,12 @@ const Index = () => {
                     Ôn tập
                   </Button>
                 </Link>
+                <Link to="/discussion">
+                  <Button variant="hero" size="lg" className="gap-2">
+                    <Brain className="w-5 h-5" />
+                    Q&A
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -103,16 +109,19 @@ const Index = () => {
         </section>
 
         {/* Quote Section */}
-        <section className="py-16 bg-muted/50">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto text-center">
-              <blockquote className="text-2xl md:text-3xl font-semibold text-foreground mb-4 italic">
-                "Không có gì quý hơn độc lập tự do"
-              </blockquote>
-              <p className="text-muted-foreground">– Hồ Chí Minh</p>
-            </div>
-          </div>
-        </section>
+<section className="py-16 bg-muted/50">
+  <div className="container mx-auto px-4">
+    <div className="max-w-3xl mx-auto text-center">
+      <blockquote className="text-2xl md:text-3xl font-semibold text-foreground mb-4 italic">
+        "Máy móc không tạo ra giá trị mới – chỉ con người mới làm được điều đó."
+      </blockquote>
+      <p className="text-muted-foreground">
+        – Tư tưởng C. Mác về lao động và giá trị thặng dư
+      </p>
+    </div>
+  </div>
+</section>
+
       </main>
 
       <Footer />
